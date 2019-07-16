@@ -306,7 +306,11 @@
                         <div class="p-2"><img src="../../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>
                         <div class="comment-text w-100">
                             <h6 class="font-medium">User 1</h6>
-                            <span class="m-b-15 d-block"> @yield('content') </span>
+
+                            <span class="m-b-15 d-block"> 
+                                @yield('content') 
+                            </span>
+
                             <div class="comment-footer">
                                 <span class="text-muted float-right">May 14, 2019</span> 
                                 <button type="button" class="btn btn-cyan btn-sm">Edit</button>
