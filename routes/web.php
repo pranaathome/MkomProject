@@ -2,33 +2,98 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\MahasiswaController;
+// use Barryvdh\DomPDF\PDF;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage');
 });
 
-Route::get('form-test', function(){
-    $halaman = 'form-test';
-    return view('form')->with(compact('halaman'));
-});
+Auth::routes(['register' => false]);
+Route::post('/login/custom', [
+    'uses' => 'LoginController@login',
+    'as' => 'login.custom'
+]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('mahasiswa/cari', 'MahasiswaController@cari')->name('mahasiswa.cari');
 
-Auth::routes();
+Route::resource('ketua', 'KetuaController');
+Route::resource('anggota', 'AnggotaController');
+Route::resource('pengesah', 'PengesahController');
+Route::resource('profile', 'ProfileController');
+Route::resource('user', 'UserController');
 
-Route::get('mahasiswa/dashboard', 'MahasiswaController@index')->name('mahasiswa.dashboard');
-Route::get('mahasiswa/create', 'MahasiswaController@create')->name('mahasiswa.create');
-Route::get('mahasiswa/{mahasiswa}', 'MahasiswaController@show')->name('mahasiswa.show');
-Route::post('mahasiswa', 'MahasiswaController@store')->name('mahasiswa.store');
+Route::get('form_kolokium/{user}', 'FormulirController@FormKolokium')->name('formulir.form_kolokium');
+Route::get('form_sidang/{user}', 'FormulirController@FormSidang')->name('formulir.form_sidang');
+Route::get('permohonan_data/{user}', 'FormulirController@PermohonanData')->name('formulir.permohonan_data');
+Route::get('undangan_kolokium/{user}', 'FormulirController@UndanganKolokium')->name('formulir.undangan_kolokium');
+
+// Route::resource('mahasiswa', 'MahasiswaController');
+// Route::get('user/{user}/edit_surat_online', 'UserController@edit')->name('user.edit.surat_online');
+// Route::get('user/{user}/edit_profile', 'UserController@edit')->name('user.edit.profile');
+// Route::resource('dosen', 'DosenController');
+
+// Route::get('form_sidang/{mahasiswa}', 'MahasiswaController@formSidang')->name('mahasiswa.form_sidang');
+// Route::get('permohonan_data/{mahasiswa}', 'MahasiswaController@permohonanData')->name('mahasiswa.permohonan_data');
+// Route::get('undangan_kolokium/{mahasiswa}', 'MahasiswaController@undanganKolokium')->name('mahasiswa.undangan_kolokium');
+
+// Route::get('/form_kolokium/pdf', function () {
+//     $pdf = PDF::loadView('mahasiswa.pdf.form_kolokium');
+
+//     return $pdf->download('Formulir Kolokium.pdf');
+// });
+
+// Route::get('/form_kolokium/html', function () {
+//     return view('mahasiswa.pdf.form_kolokium');
+// });
+
+// Route::get('/form_sidang/pdf', function () {
+//     $pdf = PDF::loadView('mahasiswa.pdf.form_sidang');
+
+//     return $pdf->download('Formulir Sidang.pdf');
+// });
+
+// Route::get('/form_sidang/html', function () {
+//     return view('mahasiswa.pdf.form_sidang');
+// });
+
+// Route::get('/permohonan_data/pdf', function () {
+//     $pdf = PDF::loadView('mahasiswa.pdf.permohonan_data');
+
+//     return $pdf->download('Surat Permohonan Data.pdf');
+// });
+
+// Route::get('/permohonan_data/html', function () {
+//     return view('mahasiswa.pdf.permohonan_data');
+// });
+
+// Route::get('/undangan_kolokium/pdf', function () {
+//     $pdf = PDF::loadView('mahasiswa.pdf.undangan_kolokium');
+
+//     return $pdf->download('Surat Undangan Kolokium.pdf');
+// });
+
+// Route::get('/undangan_kolokium/html', function () {
+//     return view('mahasiswa.pdf.undangan_kolokium');
+// });
+
+
+// Route::prefix('admin')->group(function(){
+//     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+//     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
+//     Route::get('/','AdminController@index')->name('admin.dashboard');
+// });
+
+
+// Route::get('form-test', function(){
+//     $halaman = 'form-test';
+//     return view('form')->with(compact('halaman'));
+// });
+
+// Route::get('date-mutator', 'MahasiswaController@dateMutator');
 
 // Route::get('form', 'FormController@index')->name('form');
 // Route::get('form/create', 'FormController@create')->name('form.create');
-
-Route::prefix('admin')->group(function(){
-    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-    Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/','AdminController@index')->name('admin.dashboard');
-});
 
 // Route::get('sampledata', function () {
 //     DB::table('mahasiswa')->insert([
@@ -124,3 +189,11 @@ Route::prefix('admin')->group(function(){
 //         ],
 //     ]);
 // });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

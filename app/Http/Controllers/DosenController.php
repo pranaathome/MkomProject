@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Dosen;
 use Illuminate\Http\Request;
+use App\Http\Requests\DosenRequest;
+use App\Dosen;
+use Session;
 
 class DosenController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class DosenController extends Controller
      */
     public function index()
     {
-        //
+        // $dosen_list = Dosen::orderBy('nama_dosen', 'asc')->paginate(7);
+        // $jumlah_dosen = Dosen::count();
+        // return view('dosen.index')->with(compact('dosen_list', 'jumlah_dosen'));
     }
 
     /**
@@ -24,7 +33,7 @@ class DosenController extends Controller
      */
     public function create()
     {
-        //
+        return view('dosen.create');
     }
 
     /**
@@ -33,9 +42,11 @@ class DosenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DosenRequest $request)
     {
-        //
+        Dosen::create($request->all());
+        Session::flash('flash_message', 'Data dosen berhasil disimpan.');
+        return redirect()->route('dosen.index');
     }
 
     /**
@@ -57,7 +68,7 @@ class DosenController extends Controller
      */
     public function edit(Dosen $dosen)
     {
-        //
+        return view('dosen.edit')->with(compact('dosen'));
     }
 
     /**
@@ -67,9 +78,11 @@ class DosenController extends Controller
      * @param  \App\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dosen $dosen)
+    public function update(DosenRequest $request , Dosen $dosen)
     {
-        //
+        $dosen->update($request->all());
+        Session::flash('flash_message', 'Data dosen berhasil diupdate');
+        return redirect()->route('dosen.index');
     }
 
     /**
@@ -80,6 +93,9 @@ class DosenController extends Controller
      */
     public function destroy(Dosen $dosen)
     {
-        //
+        $dosen->delete();
+        Session::flash('flash_message', 'Data dosen berhasil dihapus.');
+        Session::flash('penting', true);
+        return redirect()->route('dosen.index');
     }
 }

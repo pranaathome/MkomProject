@@ -162,6 +162,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        // Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\MkomProjectAppServiceProvider::class,
+        App\Providers\FormMahasiswaServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -228,7 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-
+        // 'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

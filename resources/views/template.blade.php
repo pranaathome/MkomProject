@@ -9,23 +9,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('bootstrap_4_3_1/css/bootstrap.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('bootstrap_4_3_1/css/bootstrap.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('bootstrap_3_3_6/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    <title>MKom Project | Production in Progress...</title>
+    <title>SISTEM INFORMASI | PASCASARJANA ILMU KOMPUTER</title>
 </head>
 <body>
 
-    @include('navbar')
 
     <div class='container'>
+        @include('navbar')
         @yield('main')
     </div>
 
     @yield('footer')
 
-    <script src="{{ asset('js/jquery_3_4_1.min.js') }}"></script>
-    <script src="{{ asset('bootstrap_4_3_1/js/bootstrap.min.js') }}"></script>
-</body>
+    <script src="{{ asset('js/jquery_2_2_1.min.js') }}"></script>
+    <script src="{{ asset('bootstrap_3_3_6/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/mkomproject.js') }}"></script>
 </html>
+
